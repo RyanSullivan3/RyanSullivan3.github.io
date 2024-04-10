@@ -22,7 +22,7 @@ body{
     position: relative;
 }
 .btn:hover{
-    color: #fff;
+    color: powderblue;
 }
 .btn::before{
     content:"";
