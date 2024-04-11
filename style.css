@@ -14,11 +14,11 @@ body{
     border: 4px solid#000;
     font-family: "montserrat",sans-serif;
     text-transform: uppercase;
-    padding: 6px 14px;
+    padding: 12px 20px;
     min-width: 200px;
     margin: 10px;
     cursor: pointer;
-    transition: color 0.4s linear;
+    transition: color 0.2s linear;
     position: relative;
 }
 
