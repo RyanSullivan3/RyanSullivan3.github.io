@@ -29,8 +29,43 @@
     </ul>
         </table>
     </div>
-    <div style="float:right;">
-</h2><script src="https://www.khanacademy.org/computer-programming/sierpinskis-pentagon/5755878744178688/embed.js?editor=no&buttons=no&author=no&embed=yes" id="sierpinski"></script>   
+      <div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'About')">About</button>
+  <button class="tablinks" onclick="openCity(event, 'Publications')">Publications</button>
+  <button class="tablinks" onclick="openCity(event, 'Experience')">Experience</button>
+</div>
+
+<div id="About" class="tabcontent">
+  <h3>About</h3>
+  <p>About is the capital city of England.</p>
+</div>
+
+<div id="Publications" class="tabcontent">
+  <h3>Publications</h3>
+  <p>Publications is the capital of France.</p> 
+</div>
+
+<div id="Experience" class="tabcontent">
+  <h3>Experience</h3>
+  <p>Experience is the capital of Japan.</p>
+</div>
+
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+      <div style="float:right;"></h2><script src="https://www.khanacademy.org/computer-programming/sierpinskis-pentagon/5755878744178688/embed.js?editor=no&buttons=no&author=no&embed=yes" id="sierpinski"></script>   
     </div>
   </body>
 </html>
