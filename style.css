@@ -21,9 +21,7 @@ body{
     transition: color 0.4s linear;
     position: relative;
 }
-.btn:hover{
-    color: solid#B6D0E2;
-}
+
 .btn::before{
     content:"";
     position: absolute;
@@ -33,7 +31,7 @@ body{
     height: 100%;
     background:#000;
     z-index: -1;
-    transition: transform 0.5s;
+    transition: transform 1s;
     transform-origin: 0 0;
 }
 .btn1::before{
