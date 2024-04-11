@@ -4,7 +4,70 @@
     <meta charset="utf-8">
     <title>Ryan Sullivan</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.min.js"></script>
+    <script type="text/processing">
+void setup() {
+  size(windowWidth, windowHeight);
+  background(255); // Set background color to white
+}
+
+void draw() {
+var x=200;
+var y=200;
+var unitcirclex=random(200-200*cos(x),200+200*cos(x));
+var unitcircley=random(200-200*sin(y),200+200*sin(y));
+// draw a point
+draw= function() {
+var choice=floor(random(1,10));
+if (choice===1) {
+    var x1=(unitcirclex+200+200*cos(0))/2;
+    var y1=(unitcircley+200+200*sin(0))/2;
+    point(x1,y1);
+    unitcirclex=x1;
+    unitcircley=y1;
+}
+else if (choice===2) {
+    var x1=(unitcirclex+200+200*cos(72))/2;
+    var y1=(unitcircley+200+200*sin(72))/2;
+    point(x1,y1);
+    unitcirclex=x1;
+    unitcircley=y1;
+}
+else if (choice===3) {
+    var x1=(unitcirclex+200+200*cos(144))/2;
+    var y1=(unitcircley+200+200*sin(144))/2;
+    point(x1,y1);
+    unitcirclex=x1;
+    unitcircley=y1;
+}
+else if (choice===4) {
+    var x1=(unitcirclex+200+200*cos(216))/2;
+    var y1=(unitcircley+200+200*sin(216))/2;
+    point(x1,y1);
+    unitcirclex=x1;
+    unitcircley=y1;
+}
+else if (choice===5) {
+    var x1=(unitcirclex+200+200*cos(288))/2;
+    var y1=(unitcircley+200+200*sin(288))/2;
+    point(x1,y1);
+    unitcirclex=x1;
+    unitcircley=y1;
+}
+stroke(0, 0,0 );
+strokeWeight(4);
+};
+
+}
+</script>
+
   <style>
+    canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Ensure canvas is behind other content */
+        }
     body  {
       background-color: powderblue;
       font-size: 40px
@@ -16,6 +79,8 @@
   </head>
   <body>
     <div class="middle">    
+    <canvas id="myCanvas"></canvas>
+
   <h1>Ryan Sullivan</h1>
         <table stlye="width:100%">
     <ul>
