@@ -27,8 +27,9 @@
         .right-container {
             width: 300px;
             margin-left: 20px;
+            position: relative;
         }
-        
+
         /* Style the tab */
         .tab {
             overflow: hidden;
@@ -89,6 +90,12 @@
         .bottom-buttons button {
             padding: 10px 20px;
         }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -138,7 +145,7 @@
         <!-- Right container with Khan Academy animation -->
         <div class="right-container">
             <h2><a href="https://www.khanacademy.org/computer-programming/spin-off-of-sierpinskis-pentagon/6253234958548992">Spin-off of "Sierpinski's Pentagon"</a></h2>
-            <script src="https://www.khanacademy.org/computer-programming/spin-off-of-sierpinskis-pentagon/6253234958548992/embed.js?editor=yes&buttons=yes&author=yes&embed=yes"></script>
+            <iframe src="https://www.khanacademy.org/computer-programming/spin-off-of-sierpinskis-pentagon/6253234958548992/embed" allowfullscreen></iframe>
             <p>Made using: <a href="http://www.khanacademy.org/computer-programming">Khan Academy Computer Science</a></p>
         </div>
     </div>
