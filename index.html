@@ -2,127 +2,111 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Ryan Sullivan</title>
+    <title>My Animation Page</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.min.js"></script>
     <style>
         body {
+            background-color: white;
+            color: black;
             font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-            text-align: center;
             margin: 0;
             padding: 0;
         }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .tabs {
+            width: 70%;
+        }
+        .animation {
+            width: 30%;
+        }
         .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #333;
+            margin-bottom: 20px;
         }
         .tab button {
-            background-color: inherit;
-            float: left;
+            background-color: #f1f1f1;
             border: none;
-            outline: none;
             cursor: pointer;
             padding: 14px 16px;
-            transition: 0.3s;
             font-size: 17px;
-            color: #fff;
+            color: black;
         }
         .tab button:hover {
-            background-color: #444;
+            background-color: #ddd;
         }
         .tab button.active {
-            background-color: #555;
+            background-color: #ccc;
         }
         .tabcontent {
             display: none;
             padding: 6px 12px;
             border: 1px solid #ccc;
             border-top: none;
-            background-color: #222;
-        }
-        canvas {
-            border: 1px solid #fff;
-            display: block;
-            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <h1>Ryan Sullivan</h1>
-    <div style="float:left; width: 60%; padding: 20px;">
-        <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'About')">About</button>
-            <button class="tablinks" onclick="openTab(event, 'Publications')">Publications</button>
-            <button class="tablinks" onclick="openTab(event, 'Experience')">Experience</button>
-        </div>
-
-        <div id="About" class="tabcontent">
-            <h3>About</h3>
-            <p>My PhD is in Difference Equations and Discrete Dynamical Systems and<br> 
-               their applications to Mathematical Biology and Finance from<br>  
-               the University of Rhode Island.<br>
-               I also enjoy playing music and skiing.<br>
-               Click below to view my professional Resume/CV.</p>
-            <h1><a href="resume.pdf" style="color: #f00;">Resume</a></h1>
-        </div>
-
-        <div id="Publications" class="tabcontent">
-            <h3>Publications</h3>
-            <p>
+    <div class="container">
+        <div class="tabs">
+            <h1>Ryan Sullivan</h1>
+            <div class="tab">
+                <button class="tablinks" onclick="openTab(event, 'About')">About</button>
+                <button class="tablinks" onclick="openTab(event, 'Publications')">Publications</button>
+                <button class="tablinks" onclick="openTab(event, 'Experience')">Experience</button>
+            </div>
+            <div id="About" class="tabcontent">
+                <h3>About</h3>
+                <p>My PhD is in Difference Equations and Discrete Dynamical Systems and <br> 
+                    their applications to Mathematical Biology and Finance from <br>  the University of Rhode Island. <br>
+                    I also enjoy playing music and skiing. <br>
+                    Click below to view my professional Resume/CV.</p>
+                <h1><a href="resume.pdf" style="color: red;">Resume</a></h1>
+            </div>
+            <div id="Publications" class="tabcontent">
+                <h3>Publications</h3>
                 <ol>
-                    <li>Dynamics of Third Order Beverton Holt Difference Equation, <em> M.R.S Kulenovic, R. Sullivan</em></li>
-                    <li>Convergent Solutions to Non-Autonomous Difference Equations, <em> O. Merino, M.R.S. Kulenovic, R. Sullivan</em></li>
-                    <li>Local Stability Implies Global Stability of Some 2nd Order Maps, <em> M.R.S. Kulenovic, R. Sullivan</em></li>
+                    <li>Dynamics of Third Order Beverton Holt Difference Equation, <em>M.R.S Kulenovic., R. Sullivan</em></li>
+                    <li>Convergent Solutions to Non-Autonomous Difference Equations, <em>O. Merino, M.R.S. Kulenovic, R. Sullivan</em></li>
+                    <li>Local Stability Implies Global Stability of Some 2nd Order Maps, <em>M.R.S. Kulenovic, R. Sullivan</em></li>
                 </ol>
-            </p>
-        </div>
-
-        <div id="Experience" class="tabcontent">
-            <h3>Experience</h3>
-            <p>
+            </div>
+            <div id="Experience" class="tabcontent">
+                <h3>Experience</h3>
                 <dl>
                     <dt>Graduate Teaching Assistant</dt>
-                    <dd> <strong>University of Rhode Island</strong>, <em>September 2020 - May 2024</em></dd>
-                    <dd> Classes Taught: Pre-Calculus, Applied Calculus I, Calculus II </dd>
-                    <dd> Tutored/Graded: Linear Algebra, Probability, Numerical Analysis, Differential Equations, etc. </dd>
+                    <dd><strong>University of Rhode Island</strong>, <em>September 2020 - May 2024</em></dd>
+                    <dd>Classes Taught: Pre-Calculus, Applied Calculus I, Calculus II</dd>
+                    <dd>Tutored/Graded: Linear Algebra, Probability, Numerical Analysis, Differential Equations, etc.</dd>
                     <dt>Room Service</dt>
-                    <dd> <strong>Castle Hill Inn, Newport RI</strong>, <em> May 2019 - March 2020 </em></dd>
+                    <dd><strong>Castle Hill Inn, Newport RI</strong>, <em>May 2019 - March 2020</em></dd>
                     <dt>Sales Associate</dt>
-                    <dd> <strong>Carmax, Warwick RI</strong>, <em> May 2018 - May 2019</em></dd>
+                    <dd><strong>Carmax, Warwick RI</strong>, <em>May 2018 - May 2019</em></dd>
                 </dl>
-            </p>
+            </div>
+        </div>
+        <div class="animation">
+            <h2>Processing.js Animation</h2>
+            <canvas id="myCanvas" width="400" height="400"></canvas>
+            <script src="sketch.js"></script>
         </div>
     </div>
-    
-    <div style="float:right; width: 40%; padding: 20px;">
-        <h2>My Processing.js Animation</h2>
-        <canvas id="myCanvas" data-processing-target="sketch.js" width="800" height="600"></canvas>
-    </div>
-    
-    <div style="clear:both; padding: 20px;">
-        <ul style="list-style: none; text-align: center;">
-            <li><a href="codingprojects.html"><button class="btn btn2">Coding Projects</button></a></li>
-            <li><a href="interests.html"><button class="btn btn2">Other Interests</button></a></li>
-            <li><a href="pets.html"><button class="btn btn2">Pets</button></a></li>
-        </ul>
-    </div>
-    
     <script>
-    function openTab(evt, tabName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
+        function openTab(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
         }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
     </script>
 </body>
 </html>
