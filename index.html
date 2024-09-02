@@ -2,99 +2,133 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>My Animation Page</title>
+    <title>Ryan Sullivan</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.min.js"></script>
     <style>
         body {
-            background-color: white;
-            color: black;
-            font-family: Arial, sans-serif;
+            font-family: Arial;
+            background-color: black;
+            color: white;
             margin: 0;
             padding: 0;
         }
-        .container {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
+
+        h1, h2 {
+            color: #FF6347; /* Reddish color */
         }
-        .tabs {
-            width: 70%;
-        }
-        .animation {
-            width: 30%;
-        }
+
         .tab {
-            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            background-color: #333;
+            margin: 0;
+            padding: 0;
         }
+
         .tab button {
-            background-color: #f1f1f1;
+            background-color: inherit;
             border: none;
+            color: white;
             cursor: pointer;
             padding: 14px 16px;
+            transition: 0.3s;
             font-size: 17px;
-            color: black;
         }
+
         .tab button:hover {
-            background-color: #ddd;
+            background-color: #555;
         }
+
         .tab button.active {
-            background-color: #ccc;
+            background-color: #777;
         }
+
         .tabcontent {
-            display: none;
-            padding: 6px 12px;
+            padding: 20px;
             border: 1px solid #ccc;
             border-top: none;
+        }
+
+        .btn {
+            background-color: #FF6347;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 10px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #FF4500;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="tabs">
-            <h1>Ryan Sullivan</h1>
-            <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'About')">About</button>
-                <button class="tablinks" onclick="openTab(event, 'Publications')">Publications</button>
-                <button class="tablinks" onclick="openTab(event, 'Experience')">Experience</button>
-            </div>
-            <div id="About" class="tabcontent">
-                <h3>About</h3>
-                <p>My PhD is in Difference Equations and Discrete Dynamical Systems and <br> 
-                    their applications to Mathematical Biology and Finance from <br>  the University of Rhode Island. <br>
-                    I also enjoy playing music and skiing. <br>
-                    Click below to view my professional Resume/CV.</p>
-                <h1><a href="resume.pdf" style="color: red;">Resume</a></h1>
-            </div>
-            <div id="Publications" class="tabcontent">
-                <h3>Publications</h3>
-                <ol>
-                    <li>Dynamics of Third Order Beverton Holt Difference Equation, <em>M.R.S Kulenovic., R. Sullivan</em></li>
-                    <li>Convergent Solutions to Non-Autonomous Difference Equations, <em>O. Merino, M.R.S. Kulenovic, R. Sullivan</em></li>
-                    <li>Local Stability Implies Global Stability of Some 2nd Order Maps, <em>M.R.S. Kulenovic, R. Sullivan</em></li>
-                </ol>
-            </div>
-            <div id="Experience" class="tabcontent">
-                <h3>Experience</h3>
-                <dl>
-                    <dt>Graduate Teaching Assistant</dt>
-                    <dd><strong>University of Rhode Island</strong>, <em>September 2020 - May 2024</em></dd>
-                    <dd>Classes Taught: Pre-Calculus, Applied Calculus I, Calculus II</dd>
-                    <dd>Tutored/Graded: Linear Algebra, Probability, Numerical Analysis, Differential Equations, etc.</dd>
-                    <dt>Room Service</dt>
-                    <dd><strong>Castle Hill Inn, Newport RI</strong>, <em>May 2019 - March 2020</em></dd>
-                    <dt>Sales Associate</dt>
-                    <dd><strong>Carmax, Warwick RI</strong>, <em>May 2018 - May 2019</em></dd>
-                </dl>
-            </div>
+        <h1>Ryan Sullivan</h1>
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'About')">About</button>
+            <button class="tablinks" onclick="openTab(event, 'Publications')">Publications</button>
+            <button class="tablinks" onclick="openTab(event, 'Experience')">Experience</button>
         </div>
-        <div class="animation">
-            <h2>Processing.js Animation</h2>
-            <canvas id="myCanvas" width="400" height="400"></canvas>
-            <script src="sketch.js"></script>
+
+        <div id="About" class="tabcontent">
+            <h3>About</h3>
+            <p>My PhD is in Difference Equations and Discrete Dynamical Systems and<br>
+                their applications to Mathematical Biology and Finance from<br>
+                the University of Rhode Island.<br>
+                I also enjoy playing music and skiing.<br>
+                Click below to view my professional Resume/CV.</p>
+            <h1><a href="resume.pdf" class="btn">Resume</a></h1>
         </div>
+
+        <div id="Publications" class="tabcontent">
+            <h3>Publications</h3>
+            <ol>
+                <li>Dynamics of Third Order Beverton Holt Difference Equation, <em>M.R.S Kulenovic., R. Sullivan</em></li>
+                <li>Convergent Solutions to Non-Autonomous Difference Equations, <em>O. Merino, M.R.S. Kulenovic, R. Sullivan</em></li>
+                <li>Local Stability Implies Global Stability of Some 2nd Order Maps, <em>M.R.S. kulenovic, R. Sullivan</em></li>
+            </ol>
+        </div>
+
+        <div id="Experience" class="tabcontent">
+            <h3>Experience</h3>
+            <dl>
+                <dt>Graduate Teaching Assistant</dt>
+                <dd><strong>University of Rhode Island</strong>, <em>September 2020 - May 2024</em></dd>
+                <dd>Classes Taught: Pre-Calculus, Applied Calculus I, Calculus II</dd>
+                <dd>Tutored/Graded: Linear Algebra, Probability, Numerical Analysis, Differential Equations, etc.</dd>
+                <dt>Room Service</dt>
+                <dd><strong>Castle Hill Inn, Newport RI</strong>, <em>May 2019 - March 2020</em></dd>
+                <dt>Sales Associate</dt>
+                <dd><strong>Carmax, Warwick RI</strong>, <em>May 2018 - May 2019</em></dd>
+            </dl>
+        </div>
+
+        <div>
+            <a href="codingprojects.html" class="btn">Coding Projects</a>
+            <a href="interests.html" class="btn">Other Interests</a>
+            <a href="pets.html" class="btn">Pets</a>
+        </div>
+
+        <h2>Processing.js Animation</h2>
+        <canvas id="myCanvas" width="600" height="400"></canvas>
+        <script src="sketch.js"></script>
     </div>
+
     <script>
-        function openTab(evt, cityName) {
+        function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
@@ -104,9 +138,12 @@
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
-            document.getElementById(cityName).style.display = "block";
+            document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
         }
+
+        // Display the 'About' tab by default
+        document.querySelector(".tab button").click();
     </script>
 </body>
 </html>
