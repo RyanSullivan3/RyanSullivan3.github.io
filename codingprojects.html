@@ -2,12 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="Open Price Prediction" content="width=device-width, initial-scale=1.0">
-    <title>       </code>
-   </pre>
-   <a href="https://github.com/yourusername/yourrepository/blob/main/yourfile.py" download>Download Python Function</a>
-
-      import numpy as np
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <meta http-equiv="refresh" content="0; url=https://github.com/RyanSullivan3/your-repository-name">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Redirecting to the repository...</h1>
+    <p>If you are not redirected automatically, follow this <a href="https://github.com/RyanSullivan3/your-repository-name">link</a>.</p>
+    <h2>Python Function</h2>
+    <pre>
+        <code>
+import numpy as np
 import pandas as pd
 import yfinance as yf
 from sklearn.model_selection import train_test_split
@@ -19,15 +28,10 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import requests
 
 def predict_tomorrow_open(ticker):
-    #### INPUT TICKER SYMBOL i.e. predict_tomorrow_open("TSLA")
-    #### FUNCTION WILL RETURN PREDICTED VALUE FOR TOMORROWS OPENING
-    #### IF VALIDATION MSE AND R^2 DIFFER GREATLY FROM TRAINING MSE AND R^2, 
-    #### CHANGE FEATURE LIST
-
     # Initialize SentimentIntensityAnalyzer
     sid = SentimentIntensityAnalyzer()
 
-    ## RSI FUNCTION ##
+    # RSI Function
     def compute_rsi(series, period=14):
         delta = series.diff()
         gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
@@ -35,28 +39,28 @@ def predict_tomorrow_open(ticker):
         rs = gain / loss
         return 100 - (100 / (1 + rs))
 
-    ## ATR FUNCTION ##
+    # ATR Function
     def compute_atr(df, period=14):
         df['H-L'] = df['High'] - df['Low']
         df['H-PC'] = abs(df['High'] - df['Close'].shift(1))
         df['L-PC'] = abs(df['Low'] - df['Close'].shift(1))
         df['TR'] = df[['H-L', 'H-PC', 'L-PC']].max(axis=1)
         return df['TR'].rolling(window=period).mean()
-    
+
     stock_data = yf.Ticker(ticker)
     df = stock_data.history(period="1y")
 
-    ### NEWSAPI SENTIMENT DATA ###
-    api_key = 'ebb836391440420da3ea347ae4268f89'
+    # News API Sentiment Data
+    api_key = 'your_api_key'
     url = 'https://newsapi.org/v2/everything'
     params = {
         'apiKey': api_key,
-        'q': ticker,  
+        'q': ticker,
         'language': 'en',
-        'pageSize': 50  ### NUMBER OF ARTICLES
+        'pageSize': 50
     }
 
-    ## SENTIMENT SCORES ##
+    # Sentiment Scores
     response = requests.get(url, params=params)
     if response.status_code == 200:
         data = response.json()
@@ -66,38 +70,30 @@ def predict_tomorrow_open(ticker):
     else:
         avg_sentiment = 0  # Default value in case of failure
 
-    #### FEATURES ######  ADD OR DELETE FEATURES AS NEEDED
-    df['SMA_20'] = df['Close'].rolling(window=20).mean() #simple moving average
-    ## df['RSI'] = compute_rsi(df['Close']) #RSI
-    ## df['MACD'] = df['Close'].ewm(span=12, adjust=False).mean() - df['Close'].ewm(span=26, adjust=False).mean() #MACD
-    ## df['Volatility'] = df['Close'].pct_change().rolling(window=20).std() #VOLATITLITY
-    ## df['ATR'] = compute_atr(df) #ATR
-    df['Sentiment'] = avg_sentiment  # Add average sentiment score
+    # Features
+    df['SMA_20'] = df['Close'].rolling(window=20).mean()
+    df['Sentiment'] = avg_sentiment
     df = df.dropna()
 
-
-    ### LEARNING ###
-
+    # Learning
     X = df.drop('Open', axis=1)
     y = df['Open']
 
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, shuffle=False)
 
-    ## REPLACES MISSING VALUES WITH MEANS ##
-  
-
+    pipeline = make_pipeline(StandardScaler())
     X_train_scaled = pipeline.fit_transform(X_train)
     X_val_scaled = pipeline.transform(X_val)
 
     model = LinearRegression()
     model.fit(X_train_scaled, y_train)
 
-    ### TRAINING DATA ###
+    # Training Data
     y_train_pred = model.predict(X_train_scaled)
     train_mse = mean_squared_error(y_train, y_train_pred)
     train_r2 = r2_score(y_train, y_train_pred)
 
-    ### VALIDATION DATA ###
+    # Validation Data
     y_val_pred = model.predict(X_val_scaled)
     val_mse = mean_squared_error(y_val, y_val_pred)
     val_r2 = r2_score(y_val, y_val_pred)
@@ -107,7 +103,7 @@ def predict_tomorrow_open(ticker):
     print(f"Validation Mean Squared Error: {val_mse}")
     print(f"Validation R-squared: {val_r2}")
 
-    ### PRINT PREDICTED OPENING FOR TOMORROW ###
+    # Predicting Opening for Tomorrow
     latest_data = df.iloc[-1:]
     latest_features = latest_data.drop('Open', axis=1)
     latest_features = pipeline.transform(latest_features)
@@ -118,17 +114,7 @@ def predict_tomorrow_open(ticker):
 ticker = 'GME'
 predicted_open = predict_tomorrow_open(ticker)
 print(f"Predicted opening price for {ticker} tomorrow: {predicted_open:.2f}")
-
-    
-        </pre></code>
-    </title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; }
-    </style>
-</head>
-<body>
-    <h1>Python Function</h1>
-    <pre>
-        <code>
-
+        </code>
+    </pre>
+</body>
+</html>
