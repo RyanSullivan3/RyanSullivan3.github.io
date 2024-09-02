@@ -45,4 +45,3 @@ function draw() {
     stroke(117 * choice / 5, 29 * choice / 5, 57 * choice / 5);
     strokeWeight(5 * (1 + choice / 27));
 }
-
