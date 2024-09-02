@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>Ryan Sullivan</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.min.js"></script>
     <style>
         body {
             font-family: Arial;
@@ -69,8 +68,10 @@
             padding: 20px;
         }
 
-        canvas {
-            border: 1px solid #ccc;
+        iframe {
+            border: none;
+            width: 600px;
+            height: 400px;
         }
     </style>
 </head>
@@ -116,19 +117,14 @@
             </dl>
         </div>
 
-        <div>
-            <a href="codingprojects.html" class="btn">Coding Projects</a>
-            <a href="interests.html" class="btn">Other Interests</a>
-            <a href="pets.html" class="btn">Pets</a>
-        </div>
-
-        <h2>Processing.js Animation</h2>
-        <canvas id="myCanvas" width="600" height="400"></canvas>
-        <script src="sketch.js"></script>
+        <!-- Embedding Khan Academy Animation -->
+        <h2>Sierpinski's Pentagon Animation</h2>
+        <iframe src="https://www.khanacademy.org/computer-programming/sierpinskis-pentagon/5755878744178688/embed" title="Sierpinski's Pentagon Animation"></iframe>
+        <p>Made using: <a href="http://www.khanacademy.org/computer-programming">Khan Academy Computer Science</a></p>
     </div>
 
     <script>
-        function openTab(evt, tabName) {
+        function openTab(evt, cityName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
@@ -138,12 +134,9 @@
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
-            document.getElementById(tabName).style.display = "block";
+            document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-
-        // Display the 'About' tab by default
-        document.querySelector(".tab button").click();
     </script>
 </body>
 </html>
