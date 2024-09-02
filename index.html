@@ -9,23 +9,14 @@
             font-family: Arial, sans-serif;
             background-color: #000;
             color: #fff;
+            text-align: center;
             margin: 0;
             padding: 0;
         }
-        h1, h2, p {
-            color: #f88; /* Reddish text */
-        }
-        a {
-            color: #ff6666; /* Light reddish text */
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
         .tab {
             overflow: hidden;
-            border: 1px solid #333;
-            background-color: #222;
+            border: 1px solid #ccc;
+            background-color: #333;
         }
         .tab button {
             background-color: inherit;
@@ -47,129 +38,140 @@
         .tabcontent {
             display: none;
             padding: 6px 12px;
-            border: 1px solid #333;
+            border: 1px solid #ccc;
             border-top: none;
+            background-color: #222;
         }
-        .container {
-            display: flex;
-            flex-direction: row;
-            padding: 20px;
-        }
-        .left-content {
-            flex: 1;
-            margin-right: 20px;
-        }
-        .right-content {
-            flex: 1;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table ul {
-            list-style: none;
-            padding: 0;
-        }
-        table ul li {
-            display: inline;
-            margin-right: 10px;
-        }
-        table ul li a {
-            text-decoration: none;
-            color: #ff6666;
-        }
-        .btn {
-            background-color: #555;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .btn:hover {
-            background-color: #666;
-        }
-        .right-content iframe {
-            width: 100%;
-            height: 500px;
-            border: none;
+        canvas {
+            border: 1px solid #fff;
+            display: block;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
     <h1>Ryan Sullivan</h1>
-    <div class="container">
-        <div class="left-content">
-            <div class="tab">
-                <button class="tablinks" onclick="openCity(event, 'About')">About</button>
-                <button class="tablinks" onclick="openCity(event, 'Publications')">Publications</button>
-                <button class="tablinks" onclick="openCity(event, 'Experience')">Experience</button>
-            </div>
-
-            <div id="About" class="tabcontent">
-                <h3>About</h3>
-                <p>My PhD is in Difference Equations and Discrete Dynamical Systems and <br>
-                    their applications to Mathematical Biology and Finance from <br> the University of Rhode Island. <br>
-                    I also enjoy playing music and skiing. <br>
-                    Click below to view my professional Resume/CV.</p>
-                <h1><a href="resume.pdf">Resume</a></h1>
-            </div>
-
-            <div id="Publications" class="tabcontent">
-                <h3>Publications</h3>
-                <p>
-                    <ol>
-                        <li>Dynamics of Third Order Beverton Holt Difference Equation, <em>M.R.S Kulenovic., R. Sullivan</em></li>
-                        <li>Convergent Solutions to Non-Autonomous Difference Equations, <em>O. Merino, M.R.S. Kulenovic, R. Sullivan</em></li>
-                        <li>Local Stability Implies Global Stability of Some 2nd Order Maps, <em>M.R.S. kulenovic, R. Sullivan</em></li>
-                    </ol>
-                </p>
-            </div>
-
-            <div id="Experience" class="tabcontent">
-                <h3>Experience</h3>
-                <p>
-                    <dl>
-                        <dt>Graduate Teaching Assistant</dt>
-                        <dd><strong>University of Rhode Island</strong>, <em>September 2020 - May 2024</em></dd>
-                        <dd>Classes Taught: Pre-Calculus, Applied Calculus I, Calculus II</dd>
-                        <dd>Tutored/Graded: Linear Algebra, Probability, Numerical Analysis, Differential Equations, etc.</dd>
-                        <dt>Room Service</dt>
-                        <dd><strong>Castle Hill Inn, Newport RI</strong>, <em>May 2019 - March 2020</em></dd>
-                        <dt>Sales Associate</dt>
-                        <dd><strong>Carmax, Warwick RI</strong>, <em>May 2018 - May 2019</em></dd>
-                    </dl>
-                </p>
-            </div>
-            <table>
-                <ul>
-                    <li><a href="codingprojects.html"><button class="btn">Coding Projects</button></a></li>
-                    <li><a href="interests.html"><button class="btn">Other Interests</button></a></li>
-                    <li><a href="pets.html"><button class="btn">Pets</button></a></li>
-                </ul>
-            </table>
+    <div style="float:left; width: 60%; padding: 20px;">
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'About')">About</button>
+            <button class="tablinks" onclick="openTab(event, 'Publications')">Publications</button>
+            <button class="tablinks" onclick="openTab(event, 'Experience')">Experience</button>
         </div>
 
-        <div class="right-content">
-        <h2><a href="https://www.khanacademy.org/computer-programming/spksypent/5876375916822528">spksypent</a></h2><script src="https://www.khanacademy.org/computer-programming/spksypent/5876375916822528/embed.js?editor=yes&buttons=yes&author=yes&embed=yes"></script><p>Made using: <a href="http://www.khanacademy.org/computer-programming">Khan Academy Computer Science</a></p>    
+        <div id="About" class="tabcontent">
+            <h3>About</h3>
+            <p>My PhD is in Difference Equations and Discrete Dynamical Systems and<br> 
+               their applications to Mathematical Biology and Finance from<br>  
+               the University of Rhode Island.<br>
+               I also enjoy playing music and skiing.<br>
+               Click below to view my professional Resume/CV.</p>
+            <h1><a href="resume.pdf" style="color: #f00;">Resume</a></h1>
+        </div>
+
+        <div id="Publications" class="tabcontent">
+            <h3>Publications</h3>
+            <p>
+                <ol>
+                    <li>Dynamics of Third Order Beverton Holt Difference Equation, <em> M.R.S Kulenovic, R. Sullivan</em></li>
+                    <li>Convergent Solutions to Non-Autonomous Difference Equations, <em> O. Merino, M.R.S. Kulenovic, R. Sullivan</em></li>
+                    <li>Local Stability Implies Global Stability of Some 2nd Order Maps, <em> M.R.S. Kulenovic, R. Sullivan</em></li>
+                </ol>
+            </p>
+        </div>
+
+        <div id="Experience" class="tabcontent">
+            <h3>Experience</h3>
+            <p>
+                <dl>
+                    <dt>Graduate Teaching Assistant</dt>
+                    <dd> <strong>University of Rhode Island</strong>, <em>September 2020 - May 2024</em></dd>
+                    <dd> Classes Taught: Pre-Calculus, Applied Calculus I, Calculus II </dd>
+                    <dd> Tutored/Graded: Linear Algebra, Probability, Numerical Analysis, Differential Equations, etc. </dd>
+                    <dt>Room Service</dt>
+                    <dd> <strong>Castle Hill Inn, Newport RI</strong>, <em> May 2019 - March 2020 </em></dd>
+                    <dt>Sales Associate</dt>
+                    <dd> <strong>Carmax, Warwick RI</strong>, <em> May 2018 - May 2019</em></dd>
+                </dl>
+            </p>
         </div>
     </div>
+    
+    <div style="float:right; width: 40%; padding: 20px;">
+        <h2>My Processing.js Animation</h2>
+        <canvas id="myCanvas" width="800" height="600"></canvas>
+        <script type="application/processing">
+            var x = 200;
+            var y = 200;
+            var unitcirclex = random(200 - 200 * cos(x), 200 + 200 * cos(x));
+            var unitcircley = random(200 - 200 * sin(y), 200 + 200 * sin(y));
 
+            function setup() {
+                size(800, 600);
+                background(0, 0, 0);
+                frameRate(650);
+            }
+
+            function draw() {
+                var choice = floor(random(1, 10));
+                if (choice === 1) {
+                    var x1 = (unitcirclex + 200 + 200 * cos(0)) / 2;
+                    var y1 = (unitcircley + 200 + 200 * sin(0)) / 2;
+                    point(x1, y1);
+                    unitcirclex = x1;
+                    unitcircley = y1;
+                } else if (choice === 2) {
+                    var x1 = (unitcirclex + 200 + 200 * cos(72)) / 2;
+                    var y1 = (unitcircley + 200 + 200 * sin(72)) / 2;
+                    point(x1, y1);
+                    unitcirclex = x1;
+                    unitcircley = y1;
+                } else if (choice === 3) {
+                    var x1 = (unitcirclex + 200 + 200 * cos(144)) / 2;
+                    var y1 = (unitcircley + 200 + 200 * sin(144)) / 2;
+                    point(x1, y1);
+                    unitcirclex = x1;
+                    unitcircley = y1;
+                } else if (choice === 4) {
+                    var x1 = (unitcirclex + 200 + 200 * cos(216)) / 2;
+                    var y1 = (unitcircley + 200 + 200 * sin(216)) / 2;
+                    point(x1, y1);
+                    unitcirclex = x1;
+                    unitcircley = y1;
+                } else if (choice === 5) {
+                    var x1 = (unitcirclex + 200 + 200 * cos(288)) / 2;
+                    var y1 = (unitcircley + 200 + 200 * sin(288)) / 2;
+                    point(x1, y1);
+                    unitcirclex = x1;
+                    unitcircley = y1;
+                }
+                stroke(117 * choice / 5, 29 * choice / 5, 57 * choice / 5);
+                strokeWeight(5 * (1 + choice / 27));
+            }
+        </script>
+    </div>
+    
+    <div style="clear:both; padding: 20px;">
+        <ul style="list-style: none; text-align: center;">
+            <li><a href="codingprojects.html"><button class="btn btn2">Coding Projects</button></a></li>
+            <li><a href="interests.html"><button class="btn btn2">Other Interests</button></a></li>
+            <li><a href="pets.html"><button class="btn btn2">Pets</button></a></li>
+        </ul>
+    </div>
+    
     <script>
-        function openCity(evt, cityName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(cityName).style.display = "block";
-            evt.currentTarget.className += " active";
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
         }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
     </script>
 </body>
 </html>
