@@ -19,10 +19,12 @@
             display: flex;
             flex: 1;
             padding: 20px;
+            position: relative;
         }
         
         .tab-container {
             flex: 1;
+            position: relative;
         }
 
         .right-container {
@@ -31,6 +33,22 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
+        }
+
+        .video-top-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 25%;
+            height: 25%;
+        }
+
+        .video-bottom-right {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 25%;
+            height: 25%;
         }
         
         /* Style the tab */
@@ -112,30 +130,17 @@
             border: none;
         }
     
-        .yt-embed-holder{
+        .yt-embed-holder {
             width: 100%;
             overflow: hidden; 
             aspect-ratio: 16/9;
             pointer-events: none;
         }
-       
+
         video {
             width: 100%;
-            max-width: 100%;
-        }
-
-        .play-btn {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #555;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .play-btn:hover {
-            background-color: #777;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 </head>
@@ -183,12 +188,19 @@
             </div>
         </div>
 
-        <!-- Right container with video and button -->
+        <!-- Videos -->
+        <video class="video-top-left" autoplay loop muted>
+            <source src="kkkkkk.mov" type="video/quicktime">
+            Your browser does not support the video tag.
+        </video>
+
+        <video class="video-bottom-right" autoplay loop muted>
+            <source src="pppppp.mov" type="video/quicktime">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Right container with button -->
         <div class="right-container">
-            <video id="screenRecording" controls>
-                <source src="kkkkkk.mov" type="video/quicktime">
-                Your browser does not support the video tag.
-            </video>
             <button class="play-btn" onclick="togglePlay()">Play/Pause</button>
         </div>
     </div>
@@ -218,7 +230,7 @@
         }
 
         function togglePlay() {
-            var video = document.getElementById("screenRecording");
+            var video = document.querySelector(".right-container video");
             if (video.paused) {
                 video.play();
             } else {
