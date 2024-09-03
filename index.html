@@ -9,235 +9,82 @@
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
             height: 100vh;
             background-color: #000;
             color: #fff;
         }
         
-        .container {
-            display: flex;
+        .left-side {
             flex: 1;
             padding: 20px;
-            position: relative;
-        }
-        
-        .tab-container {
-            flex: 1;
-            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid #333;
         }
 
-        .right-container {
-            width: 600px;
-            margin-left: 20px;
+        .right-side {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
-        }
-
-        .video-top-left {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 25%;
-            height: 25%;
-        }
-
-        .video-bottom-right {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 25%;
-            height: 25%;
-        }
-        
-        /* Style the tab */
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #333;
-        }
-
-        /* Style the buttons inside the tab */
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-            font-size: 17px;
-            color: #fff;
-        }
-
-        /* Change background color of buttons on hover */
-        .tab button:hover {
-            background-color: #555;
-        }
-
-        /* Create an active/current tablink class */
-        .tab button.active {
-            background-color: #777;
-        }
-
-        /* Style the tab content */
-        .tabcontent {
-            display: none;
-            padding: 6px 12px;
-            border: 1px solid #ccc;
-            border-top: none;
-            background-color: #222;
-            color: #fff;
-        }
-
-        /* Style the bottom buttons */
-        .bottom-buttons {
-            display: flex;
-            justify-content: center;
             padding: 20px;
-            border-top: 1px solid #ccc;
-            background-color: #333;
+            position: relative;
         }
 
-        .bottom-buttons ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
+        .name {
+            font-size: 2em;
+            text-align: center;
+            margin-top: 50px;
         }
 
-        .bottom-buttons li {
-            margin: 0 10px;
+        .video-grid {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            height: 100%;
         }
 
-        .bottom-buttons button {
-            padding: 10px 20px;
-            background-color: #555;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .bottom-buttons button:hover {
-            background-color: #777;
-        }
-
-        iframe {
-            width: 100%;
-            height: 315px;
-            border: none;
-        }
-    
-        .yt-embed-holder {
-            width: 100%;
-            overflow: hidden; 
-            aspect-ratio: 16/9;
-            pointer-events: none;
-        }
-
-        video {
+        .video-grid video {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transform: scaleX(-1); /* This is a workaround for slow-motion; can be adjusted or removed */
+            animation: slow-motion 2s linear infinite;
+        }
+
+        .video-top-left {
+            grid-row: 1;
+            grid-column: 1;
+        }
+
+        .video-bottom-right {
+            grid-row: 2;
+            grid-column: 2;
+        }
+
+        @keyframes slow-motion {
+            from { transform: scaleX(-1); }
+            to { transform: scaleX(1); }
         }
     </style>
 </head>
 <body>
-    <h1>Ryan Sullivan</h1>
-    <div class="container">
-        <!-- Left container with tabs -->
-        <div class="tab-container">
-            <div class="tab">
-                <button class="tablinks" onclick="openCity(event, 'About')">About</button>
-                <button class="tablinks" onclick="openCity(event, 'Publications')">Publications</button>
-                <button class="tablinks" onclick="openCity(event, 'Experience')">Experience</button>
-            </div>
-
-            <div id="About" class="tabcontent">
-                <h3>About</h3>
-                <p>My PhD is in Difference Equations and Discrete Dynamical Systems and <br>
-                    their applications to Mathematical Biology and Finance from <br>  the University of Rhode Island. <br>
-                    I also enjoy playing music and skiing. <br>
-                    Click below to view my professional Resume/CV.</p>
-                <h1><a href="resume.pdf">Resume</a></h1>
-            </div>
-
-            <div id="Publications" class="tabcontent">
-                <h3>Publications</h3>
-                <p><ol>
-                    <li>Dynamics of Third Order Beverton Holt Difference Equation, <em> M.R.S Kulenovic., R. Sullivan</em></li>
-                    <li>Convergent Solutions to Non-Autonomous Difference Equations, <em> O. Merino, M.R.S. Kulenovic, R. Sullivan</em></li>
-                    <li>Local Stability Implies Global Stability of Some 2nd Order Maps, <em> M.R.S. kulenovic, R. Sullivan</em></li>
-                </ol></p> 
-            </div>
-
-            <div id="Experience" class="tabcontent">
-                <h3>Experience</h3>
-                <p><dl>
-                    <dt>Graduate Teaching Assistant</dt>
-                    <dd> <strong>University of Rhode Island</strong>, <em>September 2020 - May 2024</em></dd>
-                    <dd> Classes Taught: Pre-Calculus, Applied Calculus I, Calculus II </dd>
-                    <dd> Tutored/Graded: Linear Algebra, Probability, Numerical Analysis, Differential Equations, etc. </dd>
-                    <dt>Room Service</dt>
-                    <dd> <strong>Castle Hill Inn, Newport RI</strong>, <em> May 2019 - March 2020 </em></dd>
-                    <dt>Sales Associate</dt>
-                    <dd> <strong>Carmax, Warwick RI</strong>, <em> May 2018 - May 2019</em></dd>
-                </dl></p>
-            </div>
-        </div>
-
-        <!-- Videos -->
-        <video class="video-top-left" autoplay loop muted>
-            <source src="kkkkkk.mov" type="video/quicktime">
-            Your browser does not support the video tag.
-        </video>
-
-        <video class="video-bottom-right" autoplay loop muted>
-            <source src="pppppp.mov" type="video/quicktime">
-            Your browser does not support the video tag.
-        </video>
-
-        <!-- Right container with button -->
-        <div class="right-container">
-            <button class="play-btn" onclick="togglePlay()">Play/Pause</button>
-        </div>
+    <div class="left-side">
+        <div class="name">Ryan Sullivan</div>
     </div>
 
-    <!-- Bottom buttons -->
-    <div class="bottom-buttons">
-        <ul>
-            <li><a href="codingprojects.html"><button class="btn btn2">Coding Projects</button></a></li>
-            <li><a href="interests.html"><button class="btn btn2">Other Interests</button></a></li>
-            <li><a href="pets.html"><button class="btn btn2">Pets</button></a></li>
-        </ul>
+    <div class="right-side">
+        <div class="video-grid">
+            <video class="video-top-left" autoplay loop muted>
+                <source src="kkkkkk.mov" type="video/quicktime">
+                Your browser does not support the video tag.
+            </video>
+            <video class="video-bottom-right" autoplay loop muted>
+                <source src="pppppp.mov" type="video/quicktime">
+                Your browser does not support the video tag.
+            </video>
+        </div>
     </div>
-
-    <script>
-        function openCity(evt, cityName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(cityName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-
-        function togglePlay() {
-            var video = document.querySelector(".right-container video");
-            if (video.paused) {
-                video.play();
-            } else {
-                video.pause();
-            }
-        }
-    </script>
-    
 </body>
 </html>
