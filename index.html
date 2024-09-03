@@ -28,6 +28,9 @@
         .right-container {
             width: 600px;
             margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
         }
         
         /* Style the tab */
@@ -116,11 +119,24 @@
             pointer-events: none;
         }
        
-        
+        video {
+            width: 100%;
+            max-width: 100%;
+        }
 
+        .play-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #555;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-
-        
+        .play-btn:hover {
+            background-color: #777;
+        }
     </style>
 </head>
 <body>
@@ -167,10 +183,16 @@
             </div>
         </div>
 
+        <!-- Right container with video and button -->
+        <div class="right-container">
+            <video id="screenRecording" controls>
+                <source src="kkkkkk.mov" type="video/quicktime">
+                Your browser does not support the video tag.
+            </video>
+            <button class="play-btn" onclick="togglePlay()">Play/Pause</button>
+        </div>
+    </div>
 
-
-
-    
     <!-- Bottom buttons -->
     <div class="bottom-buttons">
         <ul>
@@ -194,8 +216,16 @@
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-    </script>
 
+        function togglePlay() {
+            var video = document.getElementById("screenRecording");
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+    </script>
     
 </body>
 </html>
