@@ -9,109 +9,159 @@
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
             height: 100vh;
             background-color: #000;
             color: #fff;
+            overflow: hidden;
         }
         
-        .left-side {
-            flex: 1;
-            padding: 20px;
+        .container {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            border-right: 1px solid #333;
+            flex: 1;
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+
+        .left-half {
+            flex: 1;
             position: relative;
         }
 
-        .right-side {
+        .right-half {
             flex: 1;
             display: grid;
             grid-template-rows: 1fr 1fr;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 20px;
-            height: 100%;
-            box-sizing: border-box;
             position: relative;
         }
 
-        .name {
-            font-size: 2em;
-            text-align: center;
-            margin-top: 50px;
-        }
-
         .video-top-left {
-            grid-row: 1;
-            grid-column: 1;
+            grid-row: 1 / 2;
+            grid-column: 1 / 2;
             width: 100%;
             height: 100%;
         }
 
         .video-bottom-right {
-            grid-row: 2;
-            grid-column: 2;
+            grid-row: 2 / 3;
+            grid-column: 2 / 3;
             width: 100%;
             height: 100%;
         }
 
-        .button {
-            background-color: #555;
-            border: none;
-            color: #fff;
-            padding: 15px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 10px 0;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            border-radius: 5px;
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
 
-        .button:hover {
-            background-color: #777;
-        }
-
-        .button-link {
+        .button-grid a {
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100%;
+            font-size: 24px;
+            color: #fff;
+            text-decoration: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            padding: 10px;
+            pointer-events: auto;
         }
+
+        .button-grid a:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .bottom-buttons {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            border-top: 1px solid #ccc;
+            background-color: #333;
+        }
+
+        .bottom-buttons ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .bottom-buttons li {
+            margin: 0 10px;
+        }
+
+        .bottom-buttons button {
+            padding: 10px 20px;
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .bottom-buttons button:hover {
+            text-decoration: underline;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(0.5); /* Slow down by reducing scale to 50% */
+        }
+
+        .top-left {
+            grid-area: 1 / 1 / 2 / 2;
+        }
+
+        .bottom-right {
+            grid-area: 2 / 2 / 3 / 3;
+        }
+
     </style>
 </head>
 <body>
-    <div class="left-side">
-        <div class="name">Ryan Sullivan</div>
+    <div class="container">
+        <!-- Left half with name -->
+        <div class="left-half">
+            <h1 style="text-align: center; margin-top: 20px;">Ryan Sullivan</h1>
+        </div>
+
+        <!-- Right half with videos and buttons -->
+        <div class="right-half">
+            <!-- Videos -->
+            <video class="video-top-left top-left" autoplay loop muted>
+                <source src="kkkkkk.mov" type="video/quicktime">
+                Your browser does not support the video tag.
+            </video>
+
+            <video class="video-bottom-right bottom-right" autoplay loop muted>
+                <source src="pppppp.mov" type="video/quicktime">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- Buttons -->
+            <div class="button-grid">
+                <a href="resume.pdf" style="grid-row: 2 / 3; grid-column: 1 / 2;">Resume</a>
+                <a href="codingprojects.html" style="grid-row: 1 / 2; grid-column: 2 / 3;">Coding Projects</a>
+            </div>
+        </div>
     </div>
 
-    <div class="right-side">
-        <video class="video-top-left" autoplay loop muted>
-            <source src="kkkkkk.mov" type="video/quicktime">
-            Your browser does not support the video tag.
-        </video>
-        <video class="video-bottom-right" autoplay loop muted>
-            <source src="pppppp.mov" type="video/quicktime">
-            Your browser does not support the video tag.
-        </video>
-        <a href="codingprojects.html" class="button-link" style="grid-row: 1; grid-column: 2;">
-            <button class="button">Coding Projects</button>
-        </a>
-        <a href="resume.pdf" class="button-link" style="grid-row: 2; grid-column: 1;">
-            <button class="button">Resume</button>
-        </a>
+    <!-- Bottom buttons -->
+    <div class="bottom-buttons">
+        <ul>
+            <li><a href="codingprojects.html"><button>Coding Projects</button></a></li>
+            <li><a href="interests.html"><button>Other Interests</button></a></li>
+            <li><a href="pets.html"><button>Pets</button></a></li>
+        </ul>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var videos = document.querySelectorAll('video');
-            videos.forEach(function(video) {
-                video.playbackRate = 0.5; // Set playback speed to 50%
-            });
-        });
-    </script>
 </body>
 </html>
