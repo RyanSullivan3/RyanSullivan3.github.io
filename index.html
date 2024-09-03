@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>About - Ryan Sullivan</title>
+    <title>Ryan Sullivan</title>
     <style>
         body {
             font-family: Arial;
@@ -15,7 +15,20 @@
             overflow: hidden;
         }
         
-        .half {
+        .left-half {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+        }
+
+        .left-half h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .right-half {
             flex: 1;
             display: grid;
             grid-template-rows: repeat(2, 1fr);
@@ -81,28 +94,11 @@
     </style>
 </head>
 <body>
-    <!-- Left Half: Modified with aaaa.mov and bbbb.mov -->
-    <div class="half">
-        <!-- Videos -->
-        <video class="video-top-left" autoplay loop muted>
-            <source src="aaaa.mov" type="video/quicktime">
-            Your browser does not support the video tag.
-        </video>
-
-        <video class="video-bottom-right" autoplay loop muted>
-            <source src="bbbb.mov" type="video/quicktime">
-            Your browser does not support the video tag.
-        </video>
-
-        <!-- Buttons -->
-        <div class="button-grid">
-            <a href="resume.pdf" class="resume">Resume</a>
-            <a href="codingprojects.html" class="coding-projects">Coding Projects</a>
-        </div>
+    <div class="left-half">
+        <h1>Ryan Sullivan</h1>
     </div>
 
-    <!-- Right Half: Same as the Original Page -->
-    <div class="half">
+    <div class="right-half">
         <!-- Videos -->
         <video class="video-top-left" autoplay loop muted>
             <source src="kkkkkk.mov" type="video/quicktime">
