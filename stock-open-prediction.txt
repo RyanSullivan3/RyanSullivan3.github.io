@@ -1,0 +1,104 @@
+import numpy as np
+import pandas as pd
+import yfinance as yf
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_squared_error, r2_score
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+import requests
+
+def predict_tomorrow_open(ticker):
+    # Initialize SentimentIntensityAnalyzer
+    sid = SentimentIntensityAnalyzer()
+
+    ## RSI FUNCTION ##
+    def compute_rsi(series, period=14):
+        delta = series.diff()
+        gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
+        loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
+        rs = gain / loss
+        return 100 - (100 / (1 + rs))
+
+    ## ATR FUNCTION ##
+    def compute_atr(df, period=14):
+        df['H-L'] = df['High'] - df['Low']
+        df['H-PC'] = abs(df['High'] - df['Close'].shift(1))
+        df['L-PC'] = abs(df['Low'] - df['Close'].shift(1))
+        df['TR'] = df[['H-L', 'H-PC', 'L-PC']].max(axis=1)
+        return df['TR'].rolling(window=period).mean()
+    
+    stock_data = yf.Ticker(ticker)
+    df = stock_data.history(period="1y")
+
+    ### NEWSAPI SENTIMENT DATA ###
+    api_key = 'your_api_key'
+    url = 'https://newsapi.org/v2/everything'
+    params = {
+        'apiKey': api_key,
+        'q': ticker,  
+        'language': 'en',
+        'pageSize': 50 ##  NUMBER OF ARTICLES  ##
+    }
+
+    ## SENTIMENT SCORES ##
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        articles = data.get('articles', [])
+        sentiment_scores = [sid.polarity_scores(f"{article['title']} {article['description']}")['compound'] for article in articles]
+        avg_sentiment = np.mean(sentiment_scores)
+    else:
+        avg_sentiment = 0  # Default value in case of failure
+
+    #### FEATURES ######  ADD OR DELETE FEATURES AS NEEDED #####
+    df['SMA_20'] = df['Close'].rolling(window=20).mean() #SMA
+    ## df['RSI'] = compute_rsi(df['Close']) #RSI
+    ## df['MACD'] = df['Close'].ewm(span=12, adjust=False).mean() - df['Close'].ewm(span=26, adjust=False).mean() #MACD
+    ## df['Volatility'] = df['Close'].pct_change().rolling(window=20).std() #VOLATITLITY
+    ## df['ATR'] = compute_atr(df) #ATR
+    df['Sentiment'] = avg_sentiment  ## SENTIMENT SCORE ##
+    df = df.dropna()
+
+    ### LEARNING ###
+
+    X = df.drop('Open', axis=1)
+    y = df['Open']
+    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, shuffle=False)
+
+    ### TRANSFORMS TO MEAN = 0, STDEV = 1, BUT DOES NOT NORMALIZE ###
+    pipeline = make_pipeline(StandardScaler())
+    X_train_scaled = pipeline.fit_transform(X_train)
+    X_val_scaled = pipeline.transform(X_val)
+
+    model = LinearRegression()
+    model.fit(X_train_scaled, y_train)
+
+    ### TRAINING DATA ERROR/R^2 ###
+    y_train_pred = model.predict(X_train_scaled)
+    train_mse = mean_squared_error(y_train, y_train_pred)
+    train_r2 = r2_score(y_train, y_train_pred)
+
+    ### VALIDATION DATA ERROR/R^2 ###
+    y_val_pred = model.predict(X_val_scaled)
+    val_mse = mean_squared_error(y_val, y_val_pred)
+    val_r2 = r2_score(y_val, y_val_pred)
+
+    ### PRINT R^2 AND ERRORS ###
+    print(f"Training Mean Squared Error: {train_mse}")
+    print(f"Training R-squared: {train_r2}")
+    print(f"Validation Mean Squared Error: {val_mse}")
+    print(f"Validation R-squared: {val_r2}")
+
+    ### PRINT PREDICTED OPENING FOR TOMORROW ###
+    latest_data = df.iloc[-1:]
+    latest_features = latest_data.drop('Open', axis=1)
+    latest_features = pipeline.transform(latest_features)
+    predicted_open = model.predict(latest_features)
+    
+    return predicted_open[0]
+
+ticker = 'GME'
+predicted_open = predict_tomorrow_open(ticker)
+print(f"Predicted opening price for {ticker} tomorrow: {predicted_open:.2f}")
