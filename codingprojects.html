@@ -2,119 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="0; url=https://github.com/RyanSullivan3/your-repository-name">
+    <title>Coding Projects</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; }
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .project {
+            margin-bottom: 20px;
+        }
+        .project a {
+            color: lightblue;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        .project a:hover {
+            color: lightcoral;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <h1>Redirecting to the repository...</h1>
-    <p>If you are not redirected automatically, follow this <a href="https://github.com/RyanSullivan3/your-repository-name">link</a>.</p>
-    <h2>Python Function</h2>
-    <pre>
-        <code>
-import numpy as np
-import pandas as pd
-import yfinance as yf
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-import requests
 
-def predict_tomorrow_open(ticker):
-    # Initialize SentimentIntensityAnalyzer
-    sid = SentimentIntensityAnalyzer()
+    <h1>Coding Projects</h1>
 
-    # RSI Function
-    def compute_rsi(series, period=14):
-        delta = series.diff()
-        gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
-        loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
-        rs = gain / loss
-        return 100 - (100 / (1 + rs))
+    <div class="project">
+        <a href="stock-open-prediction.txt" target="_blank">Project 1: Stock Open Prediction</a>
+    </div>
 
-    # ATR Function
-    def compute_atr(df, period=14):
-        df['H-L'] = df['High'] - df['Low']
-        df['H-PC'] = abs(df['High'] - df['Close'].shift(1))
-        df['L-PC'] = abs(df['Low'] - df['Close'].shift(1))
-        df['TR'] = df[['H-L', 'H-PC', 'L-PC']].max(axis=1)
-        return df['TR'].rolling(window=period).mean()
+    <div class="project">
+        <a href="project2.txt" target="_blank">Project 2: Weather App</a>
+    </div>
 
-    stock_data = yf.Ticker(ticker)
-    df = stock_data.history(period="1y")
+    <div class="project">
+        <a href="project3.txt" target="_blank">Project 3: To-Do List</a>
+    </div>
 
-    # News API Sentiment Data
-    api_key = 'your_api_key'
-    url = 'https://newsapi.org/v2/everything'
-    params = {
-        'apiKey': api_key,
-        'q': ticker,
-        'language': 'en',
-        'pageSize': 50
-    }
+    <div class="project">
+        <a href="project4.txt" target="_blank">Project 4: Snake Game</a>
+    </div>
 
-    # Sentiment Scores
-    response = requests.get(url, params=params)
-    if response.status_code == 200:
-        data = response.json()
-        articles = data.get('articles', [])
-        sentiment_scores = [sid.polarity_scores(f"{article['title']} {article['description']}")['compound'] for article in articles]
-        avg_sentiment = np.mean(sentiment_scores)
-    else:
-        avg_sentiment = 0  # Default value in case of failure
+    <div class="project">
+        <a href="project5.txt" target="_blank">Project 5: Personal Blog</a>
+    </div>
 
-    # Features
-    df['SMA_20'] = df['Close'].rolling(window=20).mean()
-    df['Sentiment'] = avg_sentiment
-    df = df.dropna()
-
-    # Learning
-    X = df.drop('Open', axis=1)
-    y = df['Open']
-
-    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, shuffle=False)
-
-    pipeline = make_pipeline(StandardScaler())
-    X_train_scaled = pipeline.fit_transform(X_train)
-    X_val_scaled = pipeline.transform(X_val)
-
-    model = LinearRegression()
-    model.fit(X_train_scaled, y_train)
-
-    # Training Data
-    y_train_pred = model.predict(X_train_scaled)
-    train_mse = mean_squared_error(y_train, y_train_pred)
-    train_r2 = r2_score(y_train, y_train_pred)
-
-    # Validation Data
-    y_val_pred = model.predict(X_val_scaled)
-    val_mse = mean_squared_error(y_val, y_val_pred)
-    val_r2 = r2_score(y_val, y_val_pred)
-
-    print(f"Training Mean Squared Error: {train_mse}")
-    print(f"Training R-squared: {train_r2}")
-    print(f"Validation Mean Squared Error: {val_mse}")
-    print(f"Validation R-squared: {val_r2}")
-
-    # Predicting Opening for Tomorrow
-    latest_data = df.iloc[-1:]
-    latest_features = latest_data.drop('Open', axis=1)
-    latest_features = pipeline.transform(latest_features)
-    predicted_open = model.predict(latest_features)
-    
-    return predicted_open[0]
-
-ticker = 'GME'
-predicted_open = predict_tomorrow_open(ticker)
-print(f"Predicted opening price for {ticker} tomorrow: {predicted_open:.2f}")
-        </code>
-    </pre>
 </body>
 </html>
