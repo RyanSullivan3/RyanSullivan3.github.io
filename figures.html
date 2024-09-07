@@ -19,11 +19,31 @@
         
         .left-half {
             flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+            position: relative;
+            padding: 20px;
+        }
+
+        .left-half a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 2rem;
+        }
+
+        .left-half a:hover {
+            color: #ff6666; /* Light red text color on hover */
+        }
+
+        .right-half {
+            flex: 1;
             padding: 20px;
             overflow-y: auto; /* Add scroll if content overflows */
         }
 
-        .left-half h1 {
+        .right-half h1 {
             margin-top: 0;
         }
 
@@ -39,32 +59,6 @@
         figcaption {
             color: lightgray;
             font-size: 0.9em;
-        }
-
-        .right-half {
-            flex: 1;
-            display: grid;
-            grid-template-rows: repeat(2, 1fr);
-            grid-template-columns: repeat(2, 1fr);
-            position: relative;
-            background-color: #000;
-        }
-
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform: scale(0.5); /* Slow down by reducing scale to 50% */
-        }
-
-        .video-top-left {
-            grid-row: 1;
-            grid-column: 1;
-        }
-
-        .video-bottom-right {
-            grid-row: 2;
-            grid-column: 2;
         }
 
         .button-grid {
@@ -95,19 +89,22 @@
             color: #ff6666; /* Light red text color on hover */
         }
 
-        .button-grid .resume {
+        .button-grid .back {
             grid-row: 2;
             grid-column: 1;
-        }
-
-        .button-grid .back {
-            grid-row: 1;
-            grid-column: 2;
         }
     </style>
 </head>
 <body>
     <div class="left-half">
+        <a href="index.html">Ryan Sullivan</a>
+        <!-- Back button -->
+        <div class="button-grid">
+            <a href="codingprojects.html" class="back">Back</a>
+        </div>
+    </div>
+
+    <div class="right-half">
         <h1>Figures for PhD and Presentations</h1>
         <figure>
             <img src="trajectory3(3).png" alt="Trajectory 3 Scatter Plot">
@@ -129,25 +126,6 @@
             <embed src="basin_of_attraction_eq16_p3_points-3.pdf" type="application/pdf" width="100%" height="600px" />
             <figcaption>Basin of Attraction for Equation 16, p3, Points PDF</figcaption>
         </figure>
-    </div>
-
-    <div class="right-half">
-        <!-- Videos -->
-        <video class="video-top-left" autoplay loop muted>
-            <source src="kkkkkk.mov" type="video/quicktime">
-            Your browser does not support the video tag.
-        </video>
-
-        <video class="video-bottom-right" autoplay loop muted>
-            <source src="pppppp.mov" type="video/quicktime">
-            Your browser does not support the video tag.
-        </video>
-
-        <!-- Buttons -->
-        <div class="button-grid">
-            <a href="resume.pdf" class="resume">Resume</a>
-            <a href="codingprojects.html" class="back">Back</a>
-        </div>
     </div>
 </body>
 </html>
