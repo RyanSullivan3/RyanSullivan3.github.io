@@ -1,6 +1,113 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .left-half {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto; /* Add scroll if content overflows */
+        }
+        
+        .left-half h1 {
+            margin-top: 0;
+        }
+
+        .project {
+            margin-bottom: 20px;
+        }
+
+        .project a {
+            color: lightblue;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        .project a:hover {
+            color: lightcoral;
+            text-decoration: underline;
+        }
+
+        .description {
+            color: lightgray;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+
+        .right-half {
+            flex: 1;
+            display: grid;
+            grid-template-rows: repeat(2, 1fr);
+            grid-template-columns: repeat(2, 1fr);
+            position: relative;
+            background-color: #000;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(0.5); /* Slow down by reducing scale to 50% */
+        }
+
+        .video-top-left {
+            grid-row: 1;
+            grid-column: 1;
+        }
+
+        .video-bottom-right {
+            grid-row: 2;
+            grid-column: 2;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-rows: repeat(2, 1fr);
+            grid-template-columns: repeat(2, 1fr);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .button-grid a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+            text-decoration: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            pointer-events: auto;
+        }
+
+        .button-grid a:hover {
+            color: #ff6666; /* Light red text color on hover */
+        }
+
+        .button-grid .resume {
+            grid-row: 2;
+            grid-column: 1;
+        }
+
+        .button-grid .back {
+            grid-row: 1;
+            grid-column: 2;
+        }
+    </style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,15 +145,15 @@
             <div class="description">Mathematica</div>
         </div>
         <div class="project">
-            <a href="Buffalo_presentation-6.pdf">AMS at University of Buffalo Presentation</a>
+            <a href="ams_pres_buff.html">AMS at University of Buffalo Presentation</a>
             <div class="description">Created and evaluated 3rd order difference equation model for predicting population density of fisheries</div>
         </div>
         <div class="project">
-            <a href="Brown_Presentation_4_12_24-3.pdf">AMS at Brown University Presentation</a>
+            <a href="ams_pres_brown.html">AMS at Brown University Presentation</a>
             <div class="description">Presented theoretical results in the area of discrete dynamical systems, and applied results to population models. Contributes to the area of Darwinian dynamics/ Evolutionary game theory.</div>
         </div>
         <div class="project">
-            <a href="Pielou_equation_with_stocking_and_harvesting-2.pdf">Pielou's model with stocking and harvesting</a>
+            <a href="pielou.html">Pielou's model with stocking and harvesting</a>
             <div class="description">Analyzed Pielou's equation for population with a variety of different stocking and harvesting techniques.</div>
         </div>
     </div>
