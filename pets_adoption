@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .left-half {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto; /* Add scroll if content overflows */
+        }
+        
+        .left-half h1 {
+            margin-top: 0;
+        }
+
+        .project {
+            margin-bottom: 20px;
+        }
+
+        .project a {
+            color: lightblue;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        .project a:hover {
+            color: lightcoral;
+            text-decoration: underline;
+        }
+
+        .description {
+            color: lightgray;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+
+        .right-half {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .back-button {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 16px;
+            color: lightblue;
+            text-decoration: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .back-button:hover {
+            color: lightcoral;
+        }
+    </style>
+</head>
+<body>
+    <div class="left-half">
+        <h1>Coding Projects</h1>
+        <div class="project">
+            <a href=pets_adoption.html>Live Data Sales Dashboard</a>
+            <div class="description">Built a data pipeline to automatically refresh a sales dashboard with new data.</div>
+        </div>
+        <div class="project">
+            <a href=salesdashboard.html>Live Data Sales Dashboard</a>
+            <div class="description">Built a data pipeline to automatically refresh a sales dashboard with new data.</div>
+        </div>
+        <div class="project">
+            <a href=nfldata.html>Future Nfl Scores</a>
+            <div class="description">Uses random forest regressor to predict home and away scores for future NFL games. Encodes categorical data. Data CSVs from Kaggle.</div>
+        </div>
+        <div class="project">
+            <a href="stock_open.html">Stock Open Prediction</a>
+            <div class="description">Python - Scikit-learn - Pandas - Numpy - Machine Learning - Technical Analysis - Regression</div>
+        </div>
+        <div class="project">
+            <a href="figures.html">Figures From PhD thesis and Presentations</a>
+            <div class="description">Mathematica</div>
+        </div>
+        <div class="project">
+            <a href=ams_pres_buff.html>AMS at University of Buffalo Presentation</a>
+            <div class="description">Created and evaluated 3rd order difference euation model for predicting population density of fisheries</div>
+        </div>
+        <div class="project">
+            <a href=ams_pres_brown.html>AMS at Brown University Presentation</a>
+            <div class="description">Presented theoretical results in the area of discrete dynamical systems, and apllied results to population models. Contributes to the area of Darwinian dynamics/ Evolutionary game theory.</div>
+        </div>
+        <div class="project">
+            <a href=pielou.html>Pielou's model with of stocking and harvesting</a>
+            <div class="description">Analyzed Pielou's equation for population with variety of different stocking and harvesting techniques </div>
+        </div>
+                
+    </div>
+
+    <div class="right-half">
+        <!-- Iframe -->
+        <iframe src="https://us-east-1.online.tableau.com/t/sullivanryan15-cff8fbe439/views/pets/Dashboard1?:origin=card_share_link&:embed=n" width="1200" height="900"></iframe>
+
+    </div>
+
+    <!-- Back Button -->
+    <a href="index.html" class="back-button">Back</a>
+</body>
+</html>
