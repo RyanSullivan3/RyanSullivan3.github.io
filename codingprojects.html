@@ -9,143 +9,88 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            display: flex;
-            height: 100vh;
+            padding: 20px;
             background-color: #000;
             color: #fff;
-            overflow: hidden;
-        }
-        
-        .left-half {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto; /* Add scroll if content overflows */
-        }
-        
-        .left-half h1 {
-            margin-top: 0;
         }
 
-        .project {
+        h1 {
+            text-align: center;
+            color: lightblue;
+        }
+
+        .project-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .project-list li {
             margin-bottom: 20px;
         }
 
-        .project a {
+        .project-list a {
             color: lightblue;
             text-decoration: none;
             font-size: 1.2em;
         }
 
-        .project a:hover {
+        .project-list a:hover {
             color: lightcoral;
             text-decoration: underline;
         }
 
         .description {
             color: lightgray;
+            font-size: 1em;
             margin-top: 5px;
-            font-size: 0.9em;
-        }
-
-        .right-half {
-            flex: 1;
-            display: grid;
-            grid-template-rows: repeat(2, 1fr);
-            grid-template-columns: repeat(2, 1fr);
-            position: relative;
-            background-color: #000;
-        }
-
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform: scale(0.5); /* Slow down by reducing scale to 50% */
-        }
-
-        .video-top-left {
-            grid-row: 1;
-            grid-column: 1;
-        }
-
-        .video-bottom-right {
-            grid-row: 2;
-            grid-column: 2;
-        }
-
-        .button-grid {
-            display: grid;
-            grid-template-rows: repeat(2, 1fr);
-            grid-template-columns: repeat(2, 1fr);
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-
-        .button-grid a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #fff;
-            text-decoration: none;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            pointer-events: auto;
-        }
-
-        .button-grid a:hover {
-            color: #ff6666; /* Light red text color on hover */
-        }
-
-        .button-grid .resume {
-            grid-row: 2;
-            grid-column: 1;
-        }
-
-        .button-grid .back {
-            grid-row: 1;
-            grid-column: 2;
         }
     </style>
 </head>
 <body>
+
     <h1>Coding Projects</h1>
-        <div class="project">
-            <a href=pet_adoption.html>Pet Adoption Dashboard</a>
+
+    <ul class="project-list">
+        <li>
+            <a href="https://yourlinkto_jupyter_notebook_or_document_1">Pet Adoption Dashboard</a>
             <div class="description">Used Rescue Groups API to create an interactive dashboard for adoptable pets in Tableau. Click here for a link to a document containing screenshots and a write up of the project, or click the project title to interact with the dashboard with Tableau Cloud.</div>
-        </div>
-        <div class="project">
-            <a href=salesdashboard.html>Live Data Sales Dashboard</a>
+        </li>
+
+        <li>
+            <a href="https://yourlinkto_jupyter_notebook_or_document_2">Live Data Sales Dashboard</a>
             <div class="description">Built a data pipeline to automatically refresh a sales dashboard with new data. </div>
-        </div>
-        <div class="project">
-            <a href=nfldata.html>Future Nfl Scores</a>
+        </li>
+
+        <li>
+            <a href="https://yourlinkto_jupyter_notebook_or_document_3">Future NFL Scores</a>
             <div class="description">Uses random forest regressor to predict home and away scores for future NFL games. Encodes categorical data. Data CSVs from Kaggle.</div>
-        </div>
-        <div class="project">
-            <a href="stock_open.html">Stock Open Prediction</a>
+        </li>
+
+        <li>
+            <a href="https://yourlinkto_jupyter_notebook_or_document_4">Stock Open Prediction</a>
             <div class="description">Python - Scikit-learn - Pandas - Numpy - Machine Learning - Technical Analysis - Regression</div>
-        </div>
-        <div class="project">
-            <a href="figures.html">Figures From PhD thesis and Presentations</a>
+        </li>
+
+        <li>
+            <a href="https://yourlinkto_jupyter_notebook_or_document_5">Figures From PhD thesis and Presentations</a>
             <div class="description">Mathematica</div>
-        </div>
-        <div class="project">
-            <a href=ams_pres_buff.html>AMS at University of Buffalo Presentation</a>
-            <div class="description">Created and evaluated 3rd order difference euation model for predicting population density of fisheries</div>
-        </div>
-        <div class="project">
-            <a href=ams_pres_brown.html>AMS at Brown University Presentation</a>
-            <div class="description">Presented theoretical results in the area of discrete dynamical systems, and apllied results to population models. Contributes to the area of Darwinian dynamics/ Evolutionary game theory.</div>
-        </div>
-        <div class="project">
-            <a href=pielou.html>Pielou's model with of stocking and harvesting</a>
-            <div class="description">Analyzed Pielou's equation for population with variety of different stocking and harvesting techniques </div>
-        </div>          
-   </body>
+        </li>
+
+        <li>
+            <a href="https://yourlinkto_jupyter_notebook_or_document_6">AMS at University of Buffalo Presentation</a>
+            <div class="description">Created and evaluated 3rd order difference equation model for predicting population density of fisheries</div>
+        </li>
+
+        <li>
+            <a href="https://yourlinkto_jupyter_notebook_or_document_7">AMS at Brown University Presentation</a>
+            <div class="description">Presented theoretical results in the area of discrete dynamical systems, and applied results to population models. Contributes to the area of Darwinian dynamics/Evolutionary game theory.</div>
+        </li>
+
+        <li>
+            <a href="https://yourlinkto_jupyter_notebook_or_document_8">Pielou's Model of Stocking and Harvesting</a>
+            <div class="description">Analyzed Pielou's equation for population with a variety of different stocking and harvesting techniques.</div>
+        </li>
+    </ul>
+
+</body>
 </html>
