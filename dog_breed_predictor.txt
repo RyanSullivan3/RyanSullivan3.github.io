@@ -1,0 +1,201 @@
+# %% [markdown]
+# # Rescue Groups API Data
+
+# %% [markdown]
+# ### Loading the data from RescueGroups API
+
+# %%
+import pandas as pd
+import json
+import os
+
+json_dir = "C:/Users/sulli/rescuegroups_data"
+dataframes = []
+
+for filename in os.listdir(json_dir):
+    if filename.endswith('.json'):
+        file_path = os.path.join(json_dir, filename)
+
+        # Open the JSON file and process line by line
+        with open(file_path, 'r') as f:
+            file_content = f.read()
+
+            # Split the content into individual JSON objects
+            # Assuming that each line represents a separate JSON object
+            try:
+                data_list = json.loads(f"[{file_content.replace('}\n{', '},{')}]")
+            except json.JSONDecodeError as e:
+                print(f"Error decoding {filename}: {e}")
+                continue
+
+            # Process each JSON object individually
+            for data in data_list:
+                # Flatten the JSON structure 
+                flattened_data = {
+                    'orgID': data.get('orgID', ''),
+                    'animalID': data.get('animalID', ''),
+                    'status': data.get('status', ''),
+                    'lastUpdated': data.get('lastUpdated', ''),
+                    'name': data.get('name', ''),
+                    'species': data.get('species', ''),
+                    'breed': data.get('breed', ''),
+                    'primaryBreed': data.get('primaryBreed', ''),
+                    'secondaryBreed': data.get('secondaryBreed', ''),
+                    'sex': data.get('sex', ''),
+                    'age': data.get('age', ''),
+                    'housetrained': data.get('housetrained', ''),
+                    'size': data.get('size', ''),
+                    'altered': data.get('altered', ''),
+                    'color': data.get('color', ''),
+                    'descriptionPlain': data.get('descriptionPlain', ''),
+                    'pictures': data.get('pictures', []),
+                    'media': data.get('media', ''),
+                    'petfinderID': data.get('petfinderID', ''),
+                    'address': data.get('address', ''),
+                    'city': data.get('city', ''),
+                    'state': data.get('state', ''),
+                    'zip': data.get('zip', ''),
+                    'contactEmail': data.get('contactEmail', ''),
+                    'contactPhone': data.get('contactPhone', ''),
+                    'adoptionFee': data.get('adoptionFee', ''),
+                    'dateAdded': data.get('dateAdded', ''),
+                    'dateModified': data.get('dateModified', ''),
+                    'shelterId': data.get('shelterId', ''),
+                    # Add any other fields you want to include
+                }
+
+                # Append the extracted data to the list of DataFrames
+                dataframes.append(pd.DataFrame([flattened_data]))
+combined_df = pd.concat(dataframes, ignore_index=True)
+
+# Save the result to a CSV file
+combined_df.to_csv("C:/Users/sulli/combined_animal_data.csv", index=False)
+
+# %%
+combined_df.head()
+
+# %% [markdown]
+# ## Cleaning Data
+
+# %%
+# Filter out irrelevant columns
+params = ['primaryBreed', 'species', 'age', 'size', 'color', 'sex', 'altered', 'housetrained', 'adoptionFee']
+filtered_df = combined_df[params]
+
+# Drop rows with missing primary breed
+filtered_df = filtered_df.dropna(subset=['primaryBreed'])
+
+# Filter out Cats
+filtered_df = filtered_df[~filtered_df['species'].isin(['Cat', ''])]
+
+# Reset the index 
+filtered_df.reset_index(drop=True, inplace=True)
+
+# Remove rows with empty strings in any of the columns
+filtered_df = filtered_df[(filtered_df['species'] != '') &
+                          (filtered_df['age'] != '') &
+                          (filtered_df['size'] != '') &
+                          (filtered_df['color'] != '') &
+                          (filtered_df['sex'] != '') &
+                          (filtered_df['altered'] != '') &
+                          (filtered_df['housetrained'] != '')]
+
+# Further clean the 'color' column by combining categories
+filtered_df['color'] = filtered_df['color'].replace({
+    'Black with Brown, Red, Golden, Orange or Chestnut': 'Black',
+    'Black with Gray or Silver': 'Black',
+    'Black with Tan, Yellow or Fawn': 'Black',
+    'Black with White': 'Black',
+    'Blue/Silver/Salt & Pepper': 'Blue',
+    'Brindle with White': 'Tan',
+    'Brown/Chocolate with Black': 'Brown',
+    'Brown/Chocolate with Tan': 'Brown',
+    'Brown/Chocolate with White': 'Brown',
+    'Brown/Chocolate': 'Brown',
+    'Brown': 'Brown',
+    'Gray/Silver/Salt & Pepper with Black': 'Gray',
+    'Gray/Silver/Salt & Pepper with White': 'Gray',
+    'Red/Golden/Orange/Chestnut with Black': 'Yellow',
+    'Red/Golden/Orange/Chestnut with White': 'Yellow',
+    'Tan/Yellow/Fawn with Black': 'Yellow',
+    'Tan/Yellow/Fawn with White': 'Yellow',
+    'Tricolor (Tan/Brown & Black & White)': 'Tricolor',
+    'White with Black': 'White',
+    'White with Brown or Chocolate': 'White',
+    'White with Gray or Silver': 'White',
+    'White with Red, Golden, Orange or Chestnut': 'White',
+    'White with Tan, Yellow or Fawn': 'White',
+    'Yellow': 'Yellow',
+    'Golden/Chestnut': 'Yellow',
+    'Lemon with White': 'White',
+    'Liver with White': 'White',
+    'Silver & Tan (Yorkie colors)': 'Brown',  
+})
+
+# %% [markdown]
+# ### Training Model
+
+# %%
+from sklearn.preprocessing import LabelEncoder
+from sklearn.ensemble import RandomForestClassifier
+
+# Store breed names before encoding
+breed_names = filtered_df['primaryBreed'].unique()
+
+# Encoding Primary breed
+label_encoder_breed = LabelEncoder()
+filtered_df['primaryBreed_encoded'] = label_encoder_breed.fit_transform(filtered_df['primaryBreed'])
+
+# Encode the other categorical columns
+label_encoders = {}
+for col in ['species', 'age', 'size', 'color', 'sex', 'altered', 'housetrained']:
+    label_encoders[col] = LabelEncoder()
+    filtered_df[col] = label_encoders[col].fit_transform(filtered_df[col])
+
+
+
+# %%
+
+# Define features and target
+X = filtered_df[['species', 'age', 'size', 'color', 'sex', 'altered', 'housetrained']]
+y = filtered_df['primaryBreed_encoded']
+
+# Train the RandomForest model
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X, y)
+
+
+# %% [markdown]
+# # Predict your dog breed
+
+# %%
+
+### Options for species: ['Dog']
+#   Options for age: ['Adult' 'Baby' 'Senior' 'Young']
+#   Options for size: ['Large' 'Medium' 'Small' 'X-Large']
+#   Options for color: ['Black' 'Blue' 'Brown' 'Fawn' 'Gray' 'Orange' 'Red' 'Sable' 'Tan' 'Tricolor' 'White' 'Yellow']
+#   Options for sex: ['Female' 'Male']
+#   Options for altered (spayed/neutered): ['No' 'Yes']
+#   Options for housetrained: ['No' 'Yes']
+
+user_input = {
+    'species': 'Dog',
+    'age': 'Baby',
+    'size': 'Large',
+    'color': 'Tricolor',
+    'sex': 'Male',
+    'altered': 'Yes',
+    'housetrained': 'Yes'
+}
+
+user_input_encoded = {}
+for col in user_input:
+    if user_input[col] in label_encoders[col].classes_:
+        user_input_encoded[col] = label_encoders[col].transform([user_input[col]])[0]
+    
+user_input_df = pd.DataFrame([user_input_encoded])
+predicted_breed_encoded = model.predict(user_input_df)[0]
+predicted_breed_name = label_encoder_breed.inverse_transform([predicted_breed_encoded])
+print(f"The predicted dog breed is: {predicted_breed_name[0]}")
+
+
