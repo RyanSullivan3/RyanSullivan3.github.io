@@ -1,0 +1,196 @@
+# %%
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from sklearn.metrics import mean_squared_error
+from math import sqrt
+
+# %% [markdown]
+# ## Data
+
+# %%
+df = pd.read_csv(r"snowfall.csv")
+df.tail()
+
+# %%
+plt.plot(df['year_start'],df["total_snow"])
+plt.title("Yearly Snowfall")
+plt.ylabel('Inches of Snow')
+
+# %% [markdown]
+# ### Differencing (d)
+
+# %%
+from statsmodels.tsa.stattools import adfuller
+
+# Perform ADF test on the differenced series
+result = adfuller(df['total_snow'].dropna())
+print(f"ADF Statistic: {result[0]}")
+print(f"p-value: {result[1]}")
+
+# %% [markdown]
+# The ADF test shows that the data is stationary without any differencing
+
+# %% [markdown]
+# ### ACF and PACF for choosing p, q
+
+# %%
+plt.figure(figsize=(12, 6))
+plt.subplot(121)
+plot_acf(df['total_snow'].dropna(), lags=30, ax=plt.gca())  # ACF plot
+plt.subplot(122)
+plot_pacf(df['total_snow'].dropna(), lags=30, ax=plt.gca())  # PACF plot
+plt.show()
+
+# %% [markdown]
+# ### Testing ARIMA
+
+# %%
+model221 = ARIMA(df['total_snow'], order=(2, 1, 1))
+model221_fit = model221.fit()
+
+print(model221_fit.summary())
+
+# %% [markdown]
+# ## Evaluating Predictions Accuracy
+
+# %%
+df.set_index('year_start', inplace=True)
+
+# Split the data into train and test sets
+train_size = int(len(df) * 0.8)
+train, test = df['total_snow'][:train_size], df['total_snow'][train_size:]
+
+# Initialize history with training data
+history = [x for x in train]
+predictions = []
+
+# Walk-forward validation
+for t in range(len(test)):
+    model = ARIMA(history, order=(2, 1, 1))  # Example: ARIMA(p,d,q)
+    model_fit = model.fit()
+    
+    # Forecast the next value (one step ahead)
+    output = model_fit.forecast()
+    yhat = output[0]
+    predictions.append(yhat)
+    
+    # Append the actual observed value to the history
+    obs = test.iloc[t]
+    history.append(obs)
+    
+    # Print the predicted vs actual value
+    print(f"Predicted: {yhat:.3f}, Actual: {obs:.3f}")
+
+# Evaluate the forecast
+rmse = sqrt(mean_squared_error(test, predictions))
+print(f'Test RMSE: {rmse:.3f}')
+
+# Plot the results
+plt.figure(figsize=(12, 6))
+plt.plot(test.index, test, label='Actual Snowfall', color='blue')
+plt.plot(test.index, predictions, label='Predicted Snowfall', color='red', linestyle='dashed')
+plt.title('Snowfall Forecast vs Actual')
+plt.xlabel('Date')
+plt.ylabel('Snowfall')
+plt.legend()
+plt.show()
+
+
+# %% [markdown]
+# Using the standard ARIMA model, we get RMSE=179. We will use a difference equation model for the time series rather than the standard ARIMA model. we will use the equation x_n = a_n*x_{n-1}/(1+x_{n-1}+x_{n-2}) where a_n is a linear function on n
+
+# %%
+if 'year_start' not in df.columns:
+    df['year_start'] = df.index
+
+# %% [markdown]
+# # Beverton - Holt Time Series Model
+
+# %%
+import numpy as np
+from scipy.optimize import minimize
+
+# Drop NaN values from the train dataset
+train_clean = train.dropna()
+
+
+# %% [markdown]
+# ## Mathematical Functions
+
+# %%
+
+# Linear function for a_n 
+def linear_function(n, m, b):
+    return m * n + b
+
+# Rational Non-autonomus Difference Equation similar to Beverton-Holt
+def beverton_holt(m, b, x_t, x_tm1, n):
+    a_n = linear_function(n, m, b)
+    return (a_n * x_t) / (1 + x_t + x_tm1)
+
+# Objective function for optimization
+def objective_function_beverton_holt(params, history, actual_data):
+    m, b = params[0], params[1]
+    
+    predictions = []
+    for i in range(1, len(history)):   
+        prediction = beverton_holt(m, b, history.iloc[i], history.iloc[i-1], i)
+        predictions.append(prediction)
+    
+    # RMSE calculation
+    rmse = sqrt(mean_squared_error(actual_data[1:], predictions))  # Skip first point due to lag
+    return rmse
+
+
+# %% [markdown]
+# ## Optimizing Parameters
+
+# %%
+
+# Initial values for m and b
+initial_params = [0.1, 10.0]  
+result = minimize(objective_function_beverton_holt, initial_params, args=(train_clean, train_clean))
+
+# Best m and b parameters 
+best_m, best_b = result.x
+print(f"Best m: {best_m:.4f}, Best b: {best_b:.4f}")
+
+# Generate predictions 
+predictions_beverton_holt = []
+for i in range(len(test)):  # Iterate over the whole test data (test)
+    # For the first value, set prediction to NaN (as there's no previous value)
+    prediction = beverton_holt(best_m, best_b, test.iloc[i], test.iloc[i-1], i) if i > 0 else np.nan
+    predictions_beverton_holt.append(prediction)
+
+# Convert the predictions list to a pandas series with the same index as the original data
+predicted_series = pd.Series(predictions_beverton_holt, index=test.index)
+predicted_series = predicted_series.replace({None: np.nan})
+
+
+# %% [markdown]
+# ## Plotting Results
+
+# %%
+
+# Plot actual vs predicted values (Beverton-Holt)
+plt.figure(figsize=(10, 6))
+plt.plot(test, label='Actual Data (Test)', color='blue')  # Plot actual data as a line
+plt.plot(predicted_series, label='Predicted Data (Beverton-Holt)', color='red', linestyle='dashed')
+plt.title(f"Actual vs Predicted (Beverton-Holt) with m={best_m:.4f}, b={best_b:.4f}")
+plt.xlabel("Time Step")
+plt.ylabel("Value")
+plt.legend()
+plt.show()
+
+# Evaluate model performance on test data
+rmse_beverton_holt = sqrt(mean_squared_error(test[1:], predictions_beverton_holt[1:]))
+print(f"RMSE (Beverton-Holt) on test data: {rmse_beverton_holt:.4f}")
+
+
+# %% [markdown]
+# ## The difference equation model has RMSE=158, which is an 11% improvement.
+
+
